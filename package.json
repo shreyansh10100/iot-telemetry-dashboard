@@ -1,7 +1,8 @@
 {
-  "name": "@figma/my-make-file",
+  "name": "ashok-leyland-maintenance-dashboard",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Factory Floor Operations & Industrial Maintenance Telemetry Dashboard - Ashok Leyland Alwar Plant",
   "type": "module",
   "scripts": {
     "build": "vite build",

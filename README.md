@@ -1,19 +1,20 @@
-# 🏭 Factory Floor Operations Dashboard
+# 🏭 Factory Floor Operations & Maintenance Dashboard
+### Ashok Leyland Limited — Alwar Plant, Rajasthan
 
-A real-time industrial maintenance tracking system built for factory floor operators and technicians. Logs equipment status, manages assets, tracks spare parts inventory, and enables cross-shift communication — all synced live via Firebase.
+A real-time industrial maintenance telemetry and shopfloor tracking system built for factory floor operators and maintenance technicians. Logs equipment health, tracks line assets, coordinates cross-shift handovers, guides recovery procedures via SOP bot, and turns the daily vehicle production schedule into a prioritized tool checklist.
 
 ---
 
 ## Features
 
-- **Equipment Logging** — 5-step form to log status checks and fault reports across Tools, Panels, UPS, and TVs/Scanners
-- **Live Incident Wall** — Real-time view of all open faults; Technicians can resolve directly from the dashboard
-- **Team Intercom** — Cross-shift chat with image attachments and auto-generated fault alerts
-- **SOP Bot** — Guided troubleshooting assistant for 6 machine types with step-by-step fix procedures; auto-escalates unknown issues
-- **Asset Registry** — IP-mapped device inventory with fault status tracking and SOP QR code uploads
-- **BOM Inventory** — Spare parts stock management with low-stock warnings and live quantity editing
-- **Shift Log Export** — Full log history with search/filter and one-click CSV export (18 columns)
-- **Role-based Access** — Operator and Technician roles with password-gated Technician features
+- **Equipment Logging** — 5-step checklist form to log status checks and fault reports across Tools, Panels, UPS, and TVs/Scanners
+- **Live Incident Wall** — Real-time synchronization of open shopfloor faults; duty Technicians resolve directly with audit stamps
+- **Team Intercom** — Cross-shift communication with plant photo attachments and auto-broadcasted fault alerts
+- **SOP Bot** — Deterministic troubleshooting assistant across 6 machine types with step-by-step recovery procedures
+- **Asset Registry** — IP-mapped line equipment inventory with live status flags, custom attributes, and SOP QR code uploads
+- **Vehicle Tool Planner** — Match scheduled vehicle models against the BOM matrix to generate active tool requirements
+- **Shift Log Export** — Full audit history with live filters, multi-field search, and one-click 18-column CSV export
+- **Role-based Access** — Differentiated interfaces for Operators and Technicians with password-gated resolution controls
 
 ---
 
@@ -92,16 +93,28 @@ Technician login requires a shared password. Contact your project admin for cred
 
 ```
 src/
-└── App.tsx          # All components in a single file
-    ├── App                  (login + main shell)
-    ├── DashboardView        (stat cards, incident wall, form, intercom)
-    ├── UnifiedFiveStepForm  (equipment logging)
-    ├── IntercomChat         (team chat + SOP bot toggle)
-    ├── SopBotWidget         (guided troubleshooting)
-    ├── LogsSheetView        (log history + CSV export)
-    ├── AssetCatalogueView   (asset registry)
-    ├── BOMInventoryView     (spare parts management)
-    └── ToastContainer       (notifications)
+├── types/
+│   └── index.ts                 # TypeScript data contracts & interfaces
+├── lib/
+│   └── firebase.ts              # Realtime Database initialization & fallback config
+├── constants/
+│   └── sopMatrix.ts             # 6-machine SOP diagnostic decision matrix
+├── utils/
+│   └── helpers.ts               # IP formatter & client image compression
+├── context/
+│   └── AppContext.ts            # Global company config & toast notification context
+├── components/
+│   ├── Navbar.tsx               # Top header, shift status & mobile navigation
+│   ├── LoginView.tsx            # Operator/Technician floor terminal login
+│   ├── DashboardView.tsx        # Active alarms, category KPIs, open incident wall
+│   ├── UnifiedFiveStepForm.tsx  # 5-step maintenance checklist & fault logging
+│   ├── IntercomChat.tsx         # Cross-shift intercom with photo attachments
+│   ├── SopBotWidget.tsx         # Deterministic SOP diagnostic assistant
+│   ├── LogsSheetView.tsx        # Shift audit log table & 18-column CSV exporter
+│   ├── AssetCatalogueView.tsx   # Asset registry, QR code upload & Excel sync
+│   ├── ToolMaterialsPanel.tsx   # Vehicle-wise Tool Planner & BOM Excel matcher
+│   └── ToastContainer.tsx       # Plant alert notifications
+└── App.tsx                      # Root coordinator & database listeners
 ```
 
 ---
