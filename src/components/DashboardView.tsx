@@ -5,6 +5,12 @@ import { LogEntry, AssetComponent, ChatMessage } from '../types';
 import { ToastContext } from '../context/AppContext';
 import { UnifiedFiveStepForm } from './UnifiedFiveStepForm';
 import { IntercomChat } from './IntercomChat';
+import {
+  SAMPLE_PLANT_ASSETS,
+  SAMPLE_PLANT_LOGS,
+  SAMPLE_PLANT_MESSAGES,
+  SAMPLE_PLANT_BOM
+} from '../constants/demoPlantData';
 
 interface DashboardViewProps {
   logs: LogEntry[];
@@ -78,8 +84,46 @@ export function DashboardView({
     [userRole, logs, assets, messages, operator, addToast]
   );
 
+  const handleSeedPlantData = useCallback(() => {
+    const updates: Record<string, any> = {};
+    SAMPLE_PLANT_ASSETS.forEach(a => {
+      updates[`/assets/${a.id}`] = a;
+    });
+    SAMPLE_PLANT_LOGS.forEach(l => {
+      updates[`/logs/${l.id}`] = l;
+    });
+    SAMPLE_PLANT_MESSAGES.forEach(m => {
+      updates[`/messages/${m.id}`] = m;
+    });
+    updates['/toolMaterials'] = SAMPLE_PLANT_BOM;
+
+    update(ref(db), updates)
+      .then(() => addToast("Loaded Ashok Leyland Alwar Plant telemetry & BOM demo data.", "success"))
+      .catch(err => addToast(`Load failed: ${err.message}`, "error"));
+  }, [addToast]);
+
   return (
     <div className="space-y-8 animate-fadeIn">
+      {/* ── Demo Data Seeder Banner (shown if database is empty) ── */}
+      {assets.length === 0 && logs.length === 0 && (
+        <div className="bg-indigo-900 border border-indigo-700/80 rounded-2xl p-4 sm:p-5 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-lg animate-fadeIn">
+          <div>
+            <h4 className="font-bold text-sm flex items-center gap-2 text-indigo-200">
+              <span>🏭</span> Ashok Leyland Plant Database is Clean
+            </h4>
+            <p className="text-xs text-indigo-300 mt-1 max-w-2xl">
+              Populate the dashboard with authentic Alwar Assembly Line assets (torque wrenches, nutrunners, vision systems, Andons, shift logs, and vehicle BOM schedules).
+            </p>
+          </div>
+          <button
+            onClick={handleSeedPlantData}
+            className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl shadow transition-all whitespace-nowrap"
+          >
+            ⚡ Load Plant Demo Data
+          </button>
+        </div>
+      )}
+
       {/* ── KPI Stat Cards ── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
         <div className="bg-white p-4 md:p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
@@ -136,6 +180,61 @@ export function DashboardView({
         </div>
       </div>
 
+      {/* ── MTTR Response Time Reduction Framework (Section 6 of Report) ── */}
+      <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950 p-6 rounded-2xl text-white shadow-md border border-slate-800 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-indigo-400">
+              Section 6 • Maintenance Engineering Architecture
+            </span>
+            <h3 className="text-sm font-bold text-white flex items-center gap-2 mt-0.5">
+              <span>⏱️</span> MTTR Reduction Chain: Traditional Delay vs Digital Automation
+            </h3>
+          </div>
+          <span className="text-[11px] text-emerald-400 font-mono bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-1 rounded-md self-start sm:self-auto">
+            Target: Eliminate Preventable Stoppage Delays
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+          <div className="bg-slate-900/80 p-3 rounded-xl border border-indigo-900/40">
+            <span className="text-[10px] text-indigo-400 font-bold block mb-1">1. DETECTION</span>
+            <p className="text-slate-200 font-semibold mb-1">Instant Telemetry Push</p>
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              Replaces unrecorded verbal discovery with instant status logging on shopfloor terminals.
+            </p>
+          </div>
+          <div className="bg-slate-900/80 p-3 rounded-xl border border-indigo-900/40">
+            <span className="text-[10px] text-indigo-400 font-bold block mb-1">2. NOTIFICATION</span>
+            <p className="text-slate-200 font-semibold mb-1">Automated Team Alert</p>
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              Eliminates physical walking across the shopfloor. Alarms push directly to intercom & duty technician console.
+            </p>
+          </div>
+          <div className="bg-slate-900/80 p-3 rounded-xl border border-indigo-900/40">
+            <span className="text-[10px] text-indigo-400 font-bold block mb-1">3. DIAGNOSIS</span>
+            <p className="text-slate-200 font-semibold mb-1">SOP Decision Tree</p>
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              Deterministic recovery steps for 6 machine types prevent trial-and-error delays on the line.
+            </p>
+          </div>
+          <div className="bg-slate-900/80 p-3 rounded-xl border border-indigo-900/40">
+            <span className="text-[10px] text-indigo-400 font-bold block mb-1">4. LOGISTICS</span>
+            <p className="text-slate-200 font-semibold mb-1">BOM Tool Sweep</p>
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              Technicians verify required tools against the day's vehicle plan before the line starts, not during assembly.
+            </p>
+          </div>
+          <div className="bg-slate-900/80 p-3 rounded-xl border border-indigo-900/40">
+            <span className="text-[10px] text-indigo-400 font-bold block mb-1">5. VERIFICATION</span>
+            <p className="text-slate-200 font-semibold mb-1">Audit-Stamped Closure</p>
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              One-click resolution with technician signature prevents repeated reporting during shift handover.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* ── Open Incidents Wall ── */}
       <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <h3 className="text-sm font-bold text-rose-600 uppercase tracking-wider flex items-center gap-2 mb-4">
@@ -143,8 +242,18 @@ export function DashboardView({
           Active Shopfloor Incidents ({pendingIncidents.length})
         </h3>
         {pendingIncidents.length === 0 ? (
-          <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-emerald-800 text-xs font-semibold flex items-center gap-2">
-            <span>🛡️</span> All lines clear. Zero open maintenance incidents.
+          <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-emerald-800 text-xs font-semibold flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-2">
+              <span>🛡️</span> All lines clear. Zero open maintenance incidents.
+            </div>
+            {assets.length > 0 && (
+              <button
+                onClick={handleSeedPlantData}
+                className="text-[11px] text-indigo-600 font-bold underline hover:text-indigo-800"
+              >
+                Reload sample fault scenario
+              </button>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

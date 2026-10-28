@@ -77,7 +77,7 @@ export function Navbar({
                 page === 'bom_inventory' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-300 hover:bg-slate-800'
               }`}
             >
-              🔩 Tool Planner
+              🔩 Tool Readiness (BOM)
             </button>
             {userRole === 'Technician' && (
               <button

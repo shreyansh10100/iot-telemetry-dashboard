@@ -1,7 +1,32 @@
 # 🏭 Factory Floor Operations & Maintenance Dashboard
 ### Ashok Leyland Limited — Alwar Plant, Rajasthan
+**Summer Industrial Internship Project**  
+**Author:** Shreyansh Choudhary (24BEI0025) — B.Tech Electronics & Instrumentation, VIT Vellore  
+**Mentor:** Vaseem Akhtar, Deputy Manager, Ashok Leyland Limited  
+
+> 📄 **Project Artifacts & Official Documentation**:  
+> - 📖 **Full 15-Page Report (Markdown)**: [`docs/INTERNSHIP_REPORT.md`](docs/INTERNSHIP_REPORT.md)  
+> - 📑 **Original Completion Report (PDF)**: [`docs/Ashok_Leyland_Internship_Report.pdf`](docs/Ashok_Leyland_Internship_Report.pdf)  
+> - 📊 **Slide Deck (PPTX)**: [`docs/Ashok_Leyland_Internship_Presentation.pptx`](docs/Ashok_Leyland_Internship_Presentation.pptx)  
+> - 🔗 **Broader Initiative Context**: *Part 1 of Ashok Leyland's Digital Transformation Suite: Maintenance Dashboard (Shopfloor Execution), MPAS Store Digitisation (Warehouse Handling), and VEMS (Upstream Supplier Quality).*
+
+---
 
 A real-time industrial maintenance telemetry and shopfloor tracking system built for factory floor operators and maintenance technicians. Logs equipment health, tracks line assets, coordinates cross-shift handovers, guides recovery procedures via SOP bot, and turns the daily vehicle production schedule into a prioritized tool checklist.
+
+---
+
+## Mean Time to Repair (MTTR) Reduction Framework
+
+$$\text{MTTR} = T_{\text{Detection}} + T_{\text{Notification}} + T_{\text{Diagnosis}} + T_{\text{Logistics}} + T_{\text{Repair \& Verification}}$$
+
+| Phase | Traditional Shopfloor Bottleneck | Digital Dashboard Solution |
+|---|---|---|
+| **Detection** | Fault noticed only when an operator encounters a stoppage. | 5-step checklist & real-time telemetry card pushes status instantly. |
+| **Notification** | Operator walks across the floor or phones maintenance. | Automated alert posted directly to team intercom and technician console. |
+| **Diagnosis** | Relies on technician memory and experience. | Built-in SOP Bot guides the operator through verified recovery steps. |
+| **Logistics** | Tool shortages discovered when line is already waiting. | Morning vehicle BOM lookup pre-identifies required tools before shift starts. |
+| **Verification** | Unconfirmed verbal closure; re-reported by next shift. | One-click resolution with audit stamp, timestamp, and status clearance. |
 
 ---
 
